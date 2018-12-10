@@ -11,6 +11,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string $email
  * @property string $password
  * @property \Illuminate\Support\Collection|\App\Models\Shop[] $preferredShops
+ * @property \Illuminate\Support\Collection|\App\Models\Shop[] $dislikedShops
  * @package App\Models
  */
 class User extends Authenticatable
