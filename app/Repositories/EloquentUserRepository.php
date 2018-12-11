@@ -22,9 +22,7 @@ class EloquentUserRepository implements UserRepository
             return false;
         }
 
-        $user->preferredShops()->create([
-            'shop_id' => $shop->id,
-        ]);
+        $user->preferredShops()->sync([$shop->id]);
 
         return true;
     }
@@ -43,9 +41,7 @@ class EloquentUserRepository implements UserRepository
             return false;
         }
 
-        $user->dislikedShops()->create([
-            'shop_id' => $shop->id,
-        ]);
+        $user->dislikedShops()->sync([$shop->id]);
 
         return true;
     }

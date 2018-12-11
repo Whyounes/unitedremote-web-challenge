@@ -35,15 +35,18 @@ class User extends Authenticatable
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasManyThrough
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function preferredShops()
     {
-        return $this->hasManyThrough(Shop::class, 'liked_user_shops');
+        return $this->belongsToMany(Shop::class, 'liked_user_shops');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
     public function dislikedShops()
     {
-        return $this->hasManyThrough(Shop::class, 'disliked_user_shops');
+        return $this->belongsToMany(Shop::class, 'disliked_user_shops');
     }
 }
