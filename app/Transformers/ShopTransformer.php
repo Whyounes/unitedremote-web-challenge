@@ -12,6 +12,7 @@ class ShopTransformer extends TransformerAbstract
         return [
             'id'         => $shop->id,
             'name'       => $shop->name,
+            'image'       => $shop->image,
             'lat'        => $shop->lat,
             'lng'        => $shop->lng,
             'created_at' => $shop->created_at->timestamp,

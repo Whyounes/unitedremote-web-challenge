@@ -18,6 +18,6 @@ $factory->define(App\Models\Shop::class, function (Faker $faker) {
         'name'  => $faker->company,
         'lat'   => $faker->latitude,
         'lng'   => $faker->longitude,
-        'image' => null,
+        'image' => 'https://loremflickr.com/100/110/people',
     ];
 });
