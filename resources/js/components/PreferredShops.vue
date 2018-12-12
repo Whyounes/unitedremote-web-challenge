@@ -2,7 +2,7 @@
     <div>
         <div class="shops row">
             <div v-for="shop in shops" class="col shop">
-                <shop :shop="shop"></shop>
+                <shop :shop="shop" :is-preferred-listing="true"></shop>
             </div>
         </div>
 
@@ -43,7 +43,7 @@
         },
         methods: {
             fetchShops(page = 1) {
-                axios.get(route('api.shops.index', {page: page}))
+                axios.get(route('api.shops.liked.index', {page: page}))
                     .then((response) => {
                         this.shops = response.data.data;
                         this.pageCount = response.data.meta.pagination.total_pages;

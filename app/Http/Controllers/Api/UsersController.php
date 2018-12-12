@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Services\ShopsService;
 use App\Services\UserService;
 use App\Transformers\ShopTransformer;
 use League\Fractal\Manager;
@@ -10,12 +11,15 @@ class UsersController extends BaseController
 {
     /** @var \App\Services\UserService */
     protected $userService;
+    /** @var \App\Services\ShopsService */
+    private $shopsService;
 
-    public function __construct(Manager $manager, UserService $userService)
+    public function __construct(Manager $manager, UserService $userService, ShopsService $shopsService)
     {
         parent::__construct($manager);
 
         $this->userService = $userService;
+        $this->shopsService = $shopsService;
     }
 
     /**
@@ -36,5 +40,10 @@ class UsersController extends BaseController
         $shops = $this->userService->dislikedShops();
 
         return $this->withPagination($shops, app(ShopTransformer::class));
+    }
+
+    public function nearbyShops()
+    {
+
     }
 }

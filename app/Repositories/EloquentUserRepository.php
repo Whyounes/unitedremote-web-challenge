@@ -47,26 +47,6 @@ class EloquentUserRepository implements UserRepository
     }
 
     /**
-     * @param \App\Models\User $user
-     *
-     * @return Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function likedShops(User $user)
-    {
-        return $user->preferredShops()->get();
-    }
-
-    /**
-     * @param \App\Models\User $user
-     *
-     * @return Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function dislikedShops(User $user)
-    {
-        return $user->dislikedShops()->get();
-    }
-
-    /**
      * Return `false` if shop is not in the preferred shops list, otherwise `true`.
      *
      * @param \App\Models\User $user

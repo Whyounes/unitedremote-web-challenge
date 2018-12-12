@@ -2,6 +2,9 @@
 
 namespace App\Repositories;
 
+use App\Models\Shop;
+use App\Models\User;
+
 interface ShopRepository extends BaseRepository
 {
     /**
@@ -24,4 +27,18 @@ interface ShopRepository extends BaseRepository
      * @return \App\Models\Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
      */
     public function homeShops(array $excludedShops = []);
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function likedShops(User $user);
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function dislikedShops(User $user);
 }

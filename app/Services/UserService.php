@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Shop;
+use App\Repositories\ShopRepository;
 use App\Repositories\UserRepository;
 use Illuminate\Auth\AuthManager;
 
@@ -13,11 +14,14 @@ class UserService extends BaseService
 
     /** @var \App\Repositories\UserRepository */
     protected $userRepository;
+    /** @var \App\Repositories\ShopRepository */
+    private $shopRepository;
 
-    public function __construct(AuthManager $authManager, UserRepository $userRepository)
+    public function __construct(AuthManager $authManager, UserRepository $userRepository, ShopRepository $shopRepository)
     {
         $this->authManager = $authManager;
         $this->userRepository = $userRepository;
+        $this->shopRepository = $shopRepository;
     }
 
     /**
@@ -58,7 +62,7 @@ class UserService extends BaseService
         /** @var \App\Models\User $user */
         $user = $this->authManager->guard()->user();
 
-        return $this->userRepository->likedShops($user);
+        return $this->shopRepository->likedShops($user);
     }
 
     /**
@@ -69,7 +73,7 @@ class UserService extends BaseService
         /** @var \App\Models\User $user */
         $user = $this->authManager->guard()->user();
 
-        return $this->userRepository->dislikedShops($user);
+        return $this->shopRepository->dislikedShops($user);
     }
 
     /**

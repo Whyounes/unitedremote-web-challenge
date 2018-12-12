@@ -20,3 +20,9 @@ Route::middleware('auth')
     });
 
 Route::get('/shops', 'Api\\ShopsController@home')->name('api.shops.index');
+
+Route::middleware('auth')
+    ->group(function () {
+        Route::get('/me/shops/preferred', 'UsersController@preferredShops')->name('shops.preferred.index');
+        Route::get('/me/shops/nearby', 'UsersController@nearbyShops')->name('shops.nearby.index');
+    });

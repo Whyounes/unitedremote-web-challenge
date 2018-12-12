@@ -36,18 +36,4 @@ interface UserRepository extends BaseRepository
      * @return bool
      */
     public function userDislikeShop(User $user, Shop $shop);
-
-    /**
-     * @param \App\Models\User $user
-     *
-     * @return Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function likedShops(User $user);
-
-    /**
-     * @param \App\Models\User $user
-     *
-     * @return Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
-     */
-    public function dislikedShops(User $user);
 }

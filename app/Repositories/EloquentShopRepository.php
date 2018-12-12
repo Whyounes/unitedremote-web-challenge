@@ -3,6 +3,7 @@
 namespace App\Repositories;
 
 use App\Models\Shop;
+use App\Models\User;
 
 class EloquentShopRepository implements ShopRepository
 {
@@ -32,6 +33,26 @@ class EloquentShopRepository implements ShopRepository
             ->paginate($this->perPage(), ['*'], 'page');
 
         return $result;
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function likedShops(User $user)
+    {
+        return $user->preferredShops()->paginate($this->perPage());
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return Shop[]|\Illuminate\Support\Collection|\Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function dislikedShops(User $user)
+    {
+        return $user->dislikedShops()->paginate($this->perPage());
     }
 
     /**
