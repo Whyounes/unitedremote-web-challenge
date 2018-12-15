@@ -11,4 +11,12 @@ class UsersController extends Controller
     {
         return view('shops.preferred');
     }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function nearbyShops()
+    {
+        return view('shops.nearby');
+    }
 }

@@ -20,6 +20,7 @@ window.Vue = require('vue');
 Vue.component('shop', require('./components/ShopComponent.vue'));
 Vue.component('home-shops', require('./components/HomeShops.vue'));
 Vue.component('preferred-shops', require('./components/PreferredShops.vue'));
+Vue.component('nearby-shops', require('./components/NearbyShops.vue'));
 
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key)))

@@ -3,7 +3,9 @@
 namespace App\Services;
 
 use App\Repositories\ShopRepository;
+use Carbon\Carbon;
 use Illuminate\Auth\AuthManager;
+use Illuminate\Support\Facades\Log;
 
 class ShopsService extends BaseService
 {
@@ -46,7 +48,20 @@ class ShopsService extends BaseService
         /** @var \App\Models\User $user */
         $user = $this->authManager->guard()->user();
 
-        return $user->preferredShops()->get(['id'])->pluck('id')->toArray();
+        $preferredShops = $user->preferredShops()
+            ->get(['id'])
+            ->pluck('id')
+            ->toArray();
+        $twohoursFromNow = Carbon::now()->subRealHours(2);
+        $mutedForTzoHoursShops = $user->dislikedShops()
+            ->whereDate('disliked_user_shops.created_at', '>', $twohoursFromNow);
+
+        $mutedForTzoHoursShops = $mutedForTzoHoursShops->get(['id'])
+        ->pluck('id')
+        ->toArray();
+
+
+        return $preferredShops + $mutedForTzoHoursShops;
     }
 
     /**

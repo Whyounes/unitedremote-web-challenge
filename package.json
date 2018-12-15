@@ -20,6 +20,7 @@
         "vue": "^2.5.17"
     },
     "dependencies": {
+        "geolocation": "^0.2.0",
         "vuejs-paginate": "^2.1.0"
     }
 }
