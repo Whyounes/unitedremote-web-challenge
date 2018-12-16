@@ -57,6 +57,8 @@
             removeShop() {
                 axios.delete(route('api.shops.like.delete', {shop: this.shop.id}))
                     .then((response) => {
+                        this.$emit('preferred-shop-removed', {shop: this.shop});
+
                         alert(`Successfully removed ${this.shop.name} to your preferred shops.`);
                     })
                     .catch((error) => {

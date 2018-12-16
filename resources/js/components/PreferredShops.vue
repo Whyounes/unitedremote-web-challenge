@@ -6,6 +6,7 @@
                         :shop="shop"
                         v-on:shop-liked="fetchShops(currentPage)"
                         v-on:shop-disliked="fetchShops(currentPage)"
+                        v-on:preferred-shop-removed="fetchShops(currentPage)"
                         :is-preferred-listing="true"
                 ></shop>
             </div>

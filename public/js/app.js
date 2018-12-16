@@ -47900,6 +47900,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this = this;
 
             axios.delete(route('api.shops.like.delete', { shop: this.shop.id })).then(function (response) {
+                _this.$emit('preferred-shop-removed', { shop: _this.shop });
+
                 alert('Successfully removed ' + _this.shop.name + ' to your preferred shops.');
             }).catch(function (error) {
                 if (error.response.status === 401) {
@@ -48459,6 +48461,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -48519,6 +48522,9 @@ var render = function() {
                     _vm.fetchShops(_vm.currentPage)
                   },
                   "shop-disliked": function($event) {
+                    _vm.fetchShops(_vm.currentPage)
+                  },
+                  "preferred-shop-removed": function($event) {
                     _vm.fetchShops(_vm.currentPage)
                   }
                 }
