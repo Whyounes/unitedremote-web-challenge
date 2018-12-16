@@ -38,8 +38,8 @@ Reference (https://developer.mozilla.org/en-US/docs/Web/Security/Secure_Contexts
 
 ### Screenshots
 
-[Home Page]()
-[Login Page]()
-[Preferred Shops Page]()
-[Nearby Shops Page]()
+[Home Page](https://github.com/Whyounes/unitedremote-web-challenge/raw/master/screenshots/home-shops.png)
+[Login Page](https://github.com/Whyounes/unitedremote-web-challenge/raw/master/screenshots/login.png)
+[Preferred Shops Page](https://github.com/Whyounes/unitedremote-web-challenge/raw/master/screenshots/preferred-shops.png)
+[Nearby Shops Page](https://github.com/Whyounes/unitedremote-web-challenge/raw/master/screenshots/nearby-shops.png)
 
