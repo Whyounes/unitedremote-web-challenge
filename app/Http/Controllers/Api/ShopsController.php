@@ -87,7 +87,7 @@ class ShopsController extends BaseController
     {
         if ($this->userService->dislikeShop($shop) === false) {
             return $this->withError(
-                'You already liked this shop.',
+                'You already disliked this shop.',
                 'CANT-DISLIKED-SHOP'
             );
         }
