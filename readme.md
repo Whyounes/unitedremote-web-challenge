@@ -27,6 +27,7 @@ Run the following commands to pull app dependencies inside the app root folder:
 composer update
 npm i
 npm run dev
+php artisan migrate:refresh --seed
 ``` 
 
 ### Geolocation Note
