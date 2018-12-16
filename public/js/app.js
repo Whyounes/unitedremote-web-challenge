@@ -47860,6 +47860,20 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     props: {
@@ -47876,6 +47890,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     mounted: function mounted() {},
 
     methods: {
+        isLiked: function isLiked(shop) {
+            return shop.hasOwnProperty('is_liked') && shop.is_liked === true;
+        },
+        isDisliked: function isDisliked(shop) {
+            return shop.hasOwnProperty('is_disliked') && shop.is_disliked === true;
+        },
         removeShop: function removeShop() {
             var _this = this;
 
@@ -47905,6 +47925,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             axios.post(route('api.shops.like', { shop: this.shop.id })).then(function (response) {
+                _this2.$emit('shop-liked', { shop: _this2.shop });
+
                 alert('Successfully added ' + _this2.shop.name + ' to your preferred shops.');
             }).catch(function (error) {
                 if (error.response.status === 401) {
@@ -47930,6 +47952,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             axios.post(route('api.shops.dislike', { shop: this.shop.id })).then(function (response) {
+                _this3.$emit('shop-disliked', { shop: _this3.shop });
+
                 alert('You won\'t see ' + _this3.shop.name + ' again :)');
                 // TODO; remove from listing or reload the page.
             }).catch(function (error) {
@@ -47991,35 +48015,39 @@ var render = function() {
               )
             ]
           : [
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-info card-link",
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.likeShop($event)
-                    }
-                  }
-                },
-                [_vm._v("Like")]
-              ),
+              !_vm.isLiked(_vm.shop)
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-info card-link",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.likeShop($event)
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Like\n            ")]
+                  )
+                : _vm._e(),
               _vm._v(" "),
-              _c(
-                "a",
-                {
-                  staticClass: "btn btn-danger card-link",
-                  attrs: { href: "#" },
-                  on: {
-                    click: function($event) {
-                      $event.preventDefault()
-                      return _vm.dislikeShop($event)
-                    }
-                  }
-                },
-                [_vm._v("Dislike")]
-              )
+              !_vm.isDisliked(_vm.shop)
+                ? _c(
+                    "a",
+                    {
+                      staticClass: "btn btn-danger card-link",
+                      attrs: { href: "#" },
+                      on: {
+                        click: function($event) {
+                          $event.preventDefault()
+                          return _vm.dislikeShop($event)
+                        }
+                      }
+                    },
+                    [_vm._v("\n                Dislike\n            ")]
+                  )
+                : _vm._e()
             ]
       ],
       2
@@ -48195,6 +48223,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -48247,7 +48279,19 @@ var render = function() {
           return _c(
             "div",
             { staticClass: "col shop" },
-            [_c("shop", { attrs: { shop: shop } })],
+            [
+              _c("shop", {
+                attrs: { shop: shop },
+                on: {
+                  "shop-liked": function($event) {
+                    _vm.fetchShops(_vm.currentPage)
+                  },
+                  "shop-disliked": function($event) {
+                    _vm.fetchShops(_vm.currentPage)
+                  }
+                }
+              })
+            ],
             1
           )
         })
@@ -48410,6 +48454,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
 
 
 
@@ -48464,7 +48513,15 @@ var render = function() {
             { staticClass: "col shop" },
             [
               _c("shop", {
-                attrs: { shop: shop, "is-preferred-listing": true }
+                attrs: { shop: shop, "is-preferred-listing": true },
+                on: {
+                  "shop-liked": function($event) {
+                    _vm.fetchShops(_vm.currentPage)
+                  },
+                  "shop-disliked": function($event) {
+                    _vm.fetchShops(_vm.currentPage)
+                  }
+                }
               })
             ],
             1
@@ -48604,6 +48661,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vuejs_paginate___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vuejs_paginate__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_geolocation__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_geolocation___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_geolocation__);
+//
+//
+//
+//
 //
 //
 //
@@ -49335,7 +49396,19 @@ var render = function() {
           return _c(
             "div",
             { staticClass: "col shop" },
-            [_c("shop", { attrs: { shop: shop } })],
+            [
+              _c("shop", {
+                attrs: { shop: shop },
+                on: {
+                  "shop-liked": function($event) {
+                    _vm.fetchShops(_vm.currentPage)
+                  },
+                  "shop-disliked": function($event) {
+                    _vm.fetchShops(_vm.currentPage)
+                  }
+                }
+              })
+            ],
             1
           )
         })

@@ -12,7 +12,11 @@
 
         <div class="shops row">
             <div v-for="shop in shops" class="col shop">
-                <shop :shop="shop"></shop>
+                <shop
+                        :shop="shop"
+                        v-on:shop-liked="fetchShops(currentPage)"
+                        v-on:shop-disliked="fetchShops(currentPage)"
+                ></shop>
             </div>
         </div>
 
