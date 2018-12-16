@@ -2,10 +2,10 @@
 
 namespace App\Services;
 
+use App\Models\Shop;
+use App\Models\User;
 use App\Repositories\ShopRepository;
-use Carbon\Carbon;
 use Illuminate\Auth\AuthManager;
-use Illuminate\Support\Facades\Log;
 
 class ShopsService extends BaseService
 {
@@ -52,14 +52,13 @@ class ShopsService extends BaseService
             ->get(['id'])
             ->pluck('id')
             ->toArray();
-        $twohoursFromNow = Carbon::now()->subRealHours(2);
+
         $mutedForTzoHoursShops = $user->dislikedShops()
-            ->whereDate('disliked_user_shops.created_at', '>', $twohoursFromNow);
+            ->whereRaw('`disliked_user_shops`.`created_at` > SUBDATE( CURRENT_DATE, INTERVAL 2 HOUR)');
 
         $mutedForTzoHoursShops = $mutedForTzoHoursShops->get(['id'])
-        ->pluck('id')
-        ->toArray();
-
+            ->pluck('id')
+            ->toArray();
 
         return $preferredShops + $mutedForTzoHoursShops;
     }
@@ -69,8 +68,41 @@ class ShopsService extends BaseService
      */
     public function homeShops()
     {
+        // TODO: remove shops disliked more than 2 hours ago
         $excludedShops = $this->userExcludedShops();
 
         return $this->shopRepository->homeShops($excludedShops);
+    }
+
+    /**
+     * @param \App\Models\User $user
+     * @param \App\Models\Shop $shop
+     *
+     * @return bool
+     */
+    public function doesUserLikeShop(User $user, Shop $shop)
+    {
+        // If already eager-loaded
+        if ($user->relationLoaded('preferredShops')) {
+            return $user->preferredShops->contains('id', '=', $shop->id);
+        }
+
+        return $user->preferredShops()->where('shop_id', $shop->id)->exists();
+    }
+
+    /**
+     * @param \App\Models\User $user
+     * @param \App\Models\Shop $shop
+     *
+     * @return bool
+     */
+    public function doesUserDislikeShop(User $user, Shop $shop)
+    {
+        // If already eager-loaded
+        if ($user->relationLoaded('dislikedShops')) {
+            return $user->dislikedShops->contains('id', '=', $shop->id);
+        }
+
+        return $user->dislikedShops()->where('shop_id', $shop->id)->exists();
     }
 }
