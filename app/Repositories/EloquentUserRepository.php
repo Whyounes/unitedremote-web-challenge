@@ -22,7 +22,7 @@ class EloquentUserRepository implements UserRepository
             return false;
         }
 
-        $user->preferredShops()->sync([$shop->id]);
+        $user->preferredShops()->attach($shop->id, ['created_at' => now()]);
 
         return true;
     }
@@ -41,7 +41,7 @@ class EloquentUserRepository implements UserRepository
             return false;
         }
 
-        $user->dislikedShops()->sync([$shop->id]);
+        $user->dislikedShops()->attach($shop->id, ['created_at' => now()]);
 
         return true;
     }
